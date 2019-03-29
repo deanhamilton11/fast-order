@@ -1,0 +1,230 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php 
+    $_helper = $this->helper('Bss\FastOrder\Helper\Data');
+    if($_helper->getConfig('enabled')):
+        $number = (int) $_helper->getConfig('number_of_line') - 1;
+    $searchPlaceholder = __('Enter product name');
+    if ($_helper->getConfig('search_by_sku')) {
+        $searchPlaceholder = __('Enter product name or SKU');
+    }
+?>
+    <form class="form bss-fastorder-form"
+          action="<?php echo $block->getFormAction(); ?>"
+          id="bss-fastorder-form"
+          method="post"
+          data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'>
+        <div class="table-responsive table-wrapper">
+            <table class="bss-fastorder-multiple-form table data">
+                <thead>
+                    <tr class="bss-fastorder-row">
+                        <th class="bss-fastorder-row-ref">
+                            <span><?php /* @escapeNotVerified */ echo __('Search') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-image">
+                            <span><?php /* @escapeNotVerified */ echo __('Photo') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-name">
+                            <span><?php /* @escapeNotVerified */ echo __('Product') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-qty">
+                            <span><?php /* @escapeNotVerified */ echo __('Qty') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-price">
+                            <span><?php /* @escapeNotVerified */ echo __('Subtotal') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-edit">
+                            <span><?php /* @escapeNotVerified */ echo __('Edit') ?></span>
+                        </th>
+                        <th class="bss-fastorder-row-add">
+                            <span><?php /* @escapeNotVerified */ echo __('Action') ?></span>
+                        </th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                <?php for($i = 0; $i <= $number;$i++) : ?>
+                    <tr class="bss-fastorder-row bss-row" data-sort-order="<?php echo $i; ?>" id="bss-fastorder-<?php echo $i; ?>">
+                        <td class="bss-fastorder-row-ref" data-th="<?php /* @escapeNotVerified */ echo __('Search') ?>">
+                            <div class="bss-height-tr">
+                                <div class="input-box">
+                                    <input type="text" placeholder="<?php /* @escapeNotVerified */ echo $searchPlaceholder ?>" class="input-text bss-search-input" value="" autocomplete="off"/>
+                                </div>
+                                <div class="bss-fastorder-autocomplete">
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bss-fastorder-row-image bss-fastorder-img" data-th="<?php /* @escapeNotVerified */ echo __('Photo') ?>">&nbsp;</td>
+                        <td class="bss-fastorder-row-name" data-th="<?php /* @escapeNotVerified */ echo __('Product') ?>">
+                            <div class="bss-product-name-select"></div>
+                            <div class="bss-product-stock-status"></div>
+                            <div class="bss-product-option-select"><ul></ul></div>
+                            <div class="bss-product-custom-option-select"><ul></ul></div>
+                            <div class="bss-product-baseprice"><ul></ul></div>
+                        </td>
+                        <td class="bss-fastorder-row-qty" data-th="<?php /* @escapeNotVerified */ echo __('Qty') ?>">
+                            <input type="number" min="0" maxlength="12" class="input-text qty" title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" size="4" value="1" name="qtys[]" data-validate="{&quot;required-number&quot;:true,&quot;validate-item-quantity&quot;:{&quot;minAllowed&quot;:1}}" readonly/>
+                            <input type="hidden" class="bss-product-price-number" data-excl-tax="0" value=""/>
+                            <input type="hidden" class="bss-product-price-number-download" value="0"/>
+                            <input type="hidden" class="bss-product-price-custom-option" data-excl-tax="0" value="0"/>
+                            <input type="hidden" class="bss-product-id-calc" value=""/>
+                            <div class="bss-product-qty-increment"></div>
+                        </td>
+                        <td class="bss-fastorder-row-price" data-th="<?php /* @escapeNotVerified */ echo __('Subtotal Price') ?>">
+                            <span class="price"></span>
+                        </td>
+                        <td class="bss-fastorder-row-edit" data-th="<?php /* @escapeNotVerified */ echo __('Edit') ?>">
+                            <button value="<?php /* @escapeNotVerified */ echo __('Edit') ?>" class="button disabled" title="<?php /* @escapeNotVerified */ echo __('Edit') ?>" type="button"><span><?php /* @escapeNotVerified */ echo __('Edit') ?></span></button>
+                        </td>
+                        <td class="bss-fastorder-row-action" data-th="<?php /* @escapeNotVerified */ echo __('Action') ?>">
+                            <button value="<?php /* @escapeNotVerified */ echo __('OK') ?>" class="button btn-ok disabled" title="<?php /* @escapeNotVerified */ echo __('OK') ?>" type="button"><span><span><?php /* @escapeNotVerified */ echo __('Reset') ?></span></span></button>
+                        </td>
+                        <td class="bss-addtocart-info bss-fastorder-hidden">
+                            <input type="hidden" class="bss-product-id" value="" name="productIds[]" />
+                            <div class="bss-fastorder-hidden bss-addtocart-option"></div>
+                            <div class="bss-fastorder-hidden bss-addtocart-custom-option"></div>
+                        </td>
+                    </tr>
+                <?php endfor;?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="bss-file-upload btn action primary">
+                                <span><?php /* @escapeNotVerified */ echo __('Upload') ?></span>
+                                <input type="file" class="bss-upload" name="bss-upload"/>
+                            </div>
+                            <a href="<?php echo $block->getUrlCsv(); ?>" class="bss-sample-csv" download><?php /* @escapeNotVerified */ echo __('Download Sample Csv') ?></a>
+                        </td>
+                        <td>
+                            <button class="bss-action-add bss-addline" type="button" title="<?php /* @escapeNotVerified */ echo __('Add lines') ?>">
+                                <span>
+                                    <span><?php /* @escapeNotVerified */ echo __('Add lines') ?></span>
+                                </span>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="action primary tocart" type="submit">
+                                <span>
+                                    <span><?php /* @escapeNotVerified */ echo __('Add to cart') ?></span>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+   
+    <script type="text/x-magento-init">
+        {
+            "#bss-fastorder-0": {
+                "bss/fastorder": {
+                    "row":"<?php echo $number;?>",
+                    "searchUrl":"<?php echo $block->getUrl('fastorder/index/search');?>",
+                    "headerTextColor":"<?php echo $_helper->getConfig('header_text_color');?>",
+                    "headerBackgroundColor":"<?php echo $_helper->getConfig('header_background_color');?>",
+                    "charMin":"<?php echo (int) $_helper->getConfig('automplete_min_char');?>",
+                    "fomatPrice":<?php echo $_helper->getFomatPrice();?>,
+                    <?php if ($_helper->getRedirectToCart()): ?>
+                        "redirectToCart":"<?php echo $_helper->getRedirectToCart(); ?>",
+                    <?php endif; ?>
+                    "csvUrl":"<?php echo $block->getUrl('fastorder/index/csv');?>"
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'bss/fastorder_option'
+        ], function ($) {
+            'use strict';
+            $(document).on("mousedown", "#bss-fastorder-form .bss-row-suggest",function(e){
+                var widget = $(this).fastorder_option({});
+                var selectUrl = '<?php echo $block->getUrl('fastorder/index/option');?>';
+                if($(this).find('.bss-show-popup').val() == 1){
+                    widget.fastorder_option('showPopup', selectUrl, this);
+                }
+                widget.fastorder_option('selectProduct', this);
+            });
+        });
+    </script>
+    <script id="bss-fastorder-search-complete" type="text/x-magento-template">
+        <ul>
+        <% if(data.length < 1){%>
+            <li>
+                <span><?php /* @escapeNotVerified */ echo __('No Result') ?></span>
+            </li>
+        <% }else{%>
+            <% _.each(data, function(item) { %>
+                <li>
+                    <a href="javascript:void(0)" class="bss-row-suggest">
+                        <div class="bss-product-info">
+                            <div class="bss-product-image">
+                                <img src="<%- item.product_thumbnail %>" alt="<%= item.product_sku %>"/>
+                            </div>
+                            <div class="bss-product-name">
+                                <span class="product name"><%= item.product_name %></span>
+                            </div>
+                        
+                            <div class="bss-product-sku">
+                                <strong class="type"><?php /* @escapeNotVerified */ echo __('SKU') ?></strong>
+                                <% if(item.product_sku_highlight){%>
+                                    <span class="bss-ref-part"><%= item.product_sku_highlight %></span>
+                                <% }else{%>
+                                    <span class="bss-ref-part"><%= item.product_sku %></span>
+                                <% }%>
+                            </div>
+
+                            <div class="bss-product-price">
+                                <span class="bss-price price"><%- item.product_price %></span>
+                                <% if(item.product_price_exc_tax){%>
+                                    <p><?php echo __('Excl. Tax: ') ?><%- item.product_price_exc_tax_html %></p>
+                                <% }%>
+                            </div>
+                        </div>
+                        <input type="hidden" class="bss-product-price-amount" data-excl-tax="<%- item.product_price_exc_tax %>" value="<%- item.product_price_amount %>">
+                        <input type="hidden" class="bss-product-url" value="<%- item.product_url %>">
+                        <input type="hidden" class="bss-product-sku-select" value="<%= item.product_sku %>">
+                        <input type="hidden" class="bss-product-id" value="<%- item.product_id %>"/>
+                        <input type="hidden" class="bss-product-qty" value="<%- item.qty %>">
+                        <input type="hidden" class="bss-show-popup" value="<%- item.popup %>">
+                        <input type="hidden" class="bss-product-type" value="<%- item.product_type %>">
+                        <input type="hidden" class="bss-product-validate" value="<%- item.data_validate %>">
+                        <input type="hidden" class="bss-product-qty-decimal" value="<%- item.is_qty_decimal %>">
+                        <input type="hidden" class="bss-product-stock-status" value="<%- item.pre_order %>">
+                    </a>
+                </li>
+            <% }); %>
+        <% }%>
+        </ul>
+    </script>
+<?php endif;?>

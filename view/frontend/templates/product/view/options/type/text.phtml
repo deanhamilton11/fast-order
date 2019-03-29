@@ -1,0 +1,88 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+$sortOrder = $this->getRequest()->getParam('sortOrder');
+?>
+
+<div class="field<?php if ($_option->getType() == \Bss\FastOrder\Model\Product\Option::OPTION_TYPE_AREA) {
+    echo ' textarea';
+} ?><?php /* @escapeNotVerified */ echo $class ?> bss-options-info">
+    <label class="label" for="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text">
+        <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+        <?php /* @escapeNotVerified */ echo $block->getFormatedPrice() ?>
+    </label>
+
+    <div class="control">
+        <?php if ($_option->getType() == \Bss\FastOrder\Model\Product\Option::OPTION_TYPE_FIELD): ?>
+            <?php $_textValidate = null;
+            if ($_option->getIsRequire()) {
+                $_textValidate['required'] = true;
+            }
+            if ($_option->getMaxCharacters()) {
+                $_textValidate['maxlength'] = $_option->getMaxCharacters();
+            }
+            ?>
+            <input type="text"
+                   id="bss-options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text"
+                   class="input-text product-custom-option"
+                   <?php if (!empty($_textValidate)) {?>
+                   data-validate="<?php echo  $block->escapeHtml(json_encode($_textValidate));?>"
+                   <?php } ?>
+                   name="bss-options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                   data-selector="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                   value="<?php echo $block->escapeHtml($block->getDefaultValue()) ?>"/>
+            <input type="hidden" class="bss-customoption-select" value="" name="bss-fastorder-options[<?php echo $sortOrder;?>][<?php /* @escapeNotVerified */ echo $_option->getId() ?>]" />
+        <?php elseif ($_option->getType() == \Bss\FastOrder\Model\Product\Option::OPTION_TYPE_AREA): ?>
+            <?php $_textAreaValidate = null;
+            if ($_option->getIsRequire()) {
+                $_textAreaValidate['required'] = true;
+            }
+            if ($_option->getMaxCharacters()) {
+                $_textAreaValidate['maxlength'] = $_option->getMaxCharacters();
+            }
+            ?>
+            <textarea id="bss-options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text"
+                      class="product-custom-option"
+                    <?php if (!empty($_textAreaValidate)) {?>
+                        data-validate="<?php echo $block->escapeHtml(json_encode($_textAreaValidate));?>"
+                    <?php } ?>
+                      name="bss-options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                      data-selector="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                      rows="5"
+                      cols="25"><?php echo $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+            <input type="hidden" class="bss-customoption-select" value="" name="bss-fastorder-options[<?php echo $sortOrder;?>][<?php /* @escapeNotVerified */ echo $_option->getId() ?>]" />
+        <?php endif; ?>
+        <?php if ($_option->getMaxCharacters()): ?>
+            <p class="note"><?php /* @escapeNotVerified */ echo __('Maximum number of characters:') ?>
+                <strong><?php /* @escapeNotVerified */ echo $_option->getMaxCharacters() ?></strong></p>
+        <?php endif; ?>
+    </div>
+</div>

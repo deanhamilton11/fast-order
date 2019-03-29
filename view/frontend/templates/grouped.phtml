@@ -1,0 +1,120 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php $block->setPreconfiguredValue(); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_associatedProducts = $block->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php $sortOrder = $block->getSortOrder(); ?>
+<div class="table-wrapper grouped">
+    <table class="table data grouped" id="bss-fastorder-super-product-table">
+        <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Grouped product items') ?></caption>
+        <thead>
+        <tr>
+            <th class="col item" scope="col"><?php /* @escapeNotVerified */ echo __('Product Name') ?></th>
+            <?php if ($_product->isSaleable()): ?>
+                <th class="col qty" scope="col"><?php /* @escapeNotVerified */ echo __('Qty') ?></th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+
+        <?php if ($_hasAssociatedProducts): ?>
+        <?php foreach ($_associatedProducts as $_item): ?>
+        <tbody>
+            <tr>
+                <td data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>" class="col item">
+                    <strong class="product-item-name"><?php echo $block->escapeHtml($_item->getName()) ?></strong>
+                    <?php if ($block->getCanShowProductPrice($_product)): ?>
+                        <?php if ($block->getCanShowProductPrice($_item)): ?>
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item) ?>
+                        <?php endif; ?>
+                     <?php endif; ?>
+                </td>
+                <?php if ($_product->isSaleable()): ?>
+                <td data-th="<?php echo $block->escapeHtml(__('Qty')); ?>" class="col qty">
+                <?php if ($_item->isSaleable()) : ?>
+                    <div class="control qty">
+                        <input type="number" name="bss-fastorder-super_group[<?php echo $sortOrder;?>][<?php /* @escapeNotVerified */ echo $_item->getId() ?>]"
+                               data-selector="bss-fastorder-super_group[<?php /* @escapeNotVerified */ echo $_item->getId() ?>]"
+                               maxlength="12"
+                               value="<?php /* @escapeNotVerified */ echo $_item->getQty() * 1 ?>"
+                               title="<?php /* @escapeNotVerified */ echo __('Qty') ?>"
+                               class="input-text qty bss-attribute-select"/>
+                        <input type="hidden" class="bss-child-price" data-excl-tax="" value="">
+                    </div>
+                <?php else: ?>
+                    <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                        <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                    </div>
+                <?php endif; ?>
+                </td>
+                <?php endif; ?>
+            </tr>
+            <?php if ($block->getCanShowProductPrice($_product)
+                && $block->getCanShowProductPrice($_item)
+                && trim($block->getProductPriceHtml(
+                    $_item,
+                    \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                ))): ?>
+                <tr class="row-tier-price">
+                    <td colspan="2">
+                        <?php echo $block->getProductPriceHtml(
+                            $_item,
+                            \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                        ) ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tbody>
+            <tr>
+                <td class="unavailable"
+                    colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>">
+                    <?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?>
+                </td>
+            </tr>
+        </tbody>
+        <?php endif; ?>
+    </table>
+</div>
+<div id="bss-validation-message-box">
+    <div class="bss-mage-error"><?php /* @escapeNotVerified */ echo __('Please specify the quantity of product(s).') ?></div>
+</div>
+<script>
+  require(["jquery", "jquery/ui", "bss/fastorder_grouped"], function ($) {
+    $(document).ready(function(){
+        $('.bss-product-info-price .price-box').remove();
+    });
+    $('#bss-fastorder-super-product-table').fastorder_grouped({
+        "bssqtyElement":"input.bss-attribute-select",
+        "sortOrder":'<?php /* @escapeNotVerified */ echo $sortOrder ?>',
+    });
+  });
+</script>

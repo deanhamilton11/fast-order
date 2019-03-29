@@ -1,0 +1,45 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+?>
+<div class="field<?php /* @escapeNotVerified */ echo $class; ?> bss-options-info">
+    <label class="label" for="select_<?php /* @escapeNotVerified */ echo $_option->getId() ?>">
+        <span><?php echo  $block->escapeHtml($_option->getTitle()) ?></span>
+    </label>
+    <div class="control">
+        <?php echo $block->getValuesHtml() ?>
+        <?php if ($_option->getIsRequire()): ?>
+            <?php if ($_option->getType() == \Bss\FastOrder\Model\Product\Option::OPTION_TYPE_RADIO || $_option->getType() == \Bss\FastOrder\Model\Product\Option::OPTION_TYPE_CHECKBOX): ?>
+                <span id="bss-options-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>

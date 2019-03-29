@@ -1,0 +1,11 @@
+--- Block/Product/View/Options/Type/Select.php
++++ Block/Product/View/Options/Type/Select.php
+@@ -42,7 +42,7 @@
+      * @SuppressWarnings(PHPMD.NPathComplexity)
+      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+      */
+-    public function getValuesHtml()
++    public function getValuesHtml(): string
+     {
+         $sortOrder = $this->getRequest()->getParam('sortOrder');
+         $_option = $this->getOption();

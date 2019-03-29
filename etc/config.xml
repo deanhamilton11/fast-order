@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fastorder>
+            <general>
+                <enabled>0</enabled>
+                <number_of_line>3</number_of_line>
+                <automplete_min_char>1</automplete_min_char>
+                <active_customer_groups>0</active_customer_groups>
+                <max_results_show>5</max_results_show>
+                <active_shortcut>1</active_shortcut>
+                <header_background_color>FFFFFF</header_background_color>
+                <header_text_color>000000</header_text_color>
+                <search_by_sku>search_by_sku</search_by_sku>
+            </general>
+        </fastorder>
+    </default>
+</config>

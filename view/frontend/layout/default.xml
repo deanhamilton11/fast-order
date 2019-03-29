@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Bss_FastOrder::css/fastorder.css" media="all" />
+        <css src="Magento_Swatches::css/swatches.css"/>
+    </head>
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Bss\FastOrder\Block\TopLink" name="fastorder-link" ifconfig="fastorder/general/enabled"> 
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Fast Order</argument>
+                    <argument name="path" xsi:type="helper" helper="Bss\FastOrder\Helper\Data::getUrlShortcut">
+                        <param name="name">value</param>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="top.links">
+            <block class="Bss\FastOrder\Block\TopLink" name="fastorder-link-blank" ifconfig="fastorder/general/enabled">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Fast Order</argument>
+                    <argument name="path" xsi:type="helper" helper="Bss\FastOrder\Helper\Data::getUrlShortcut">
+                        <param name="name">value</param>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

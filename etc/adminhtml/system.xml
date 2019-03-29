@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * BSS Commerce does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * BSS Commerce does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   BSS
+ * @package    Bss_FastOrder
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2015-2016 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="bss" sortOrder="300">
+            <label>Bss Commerce</label>
+        </tab>
+        <section id="fastorder" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Fast Order</label>
+            <tab>bss</tab>
+            <resource>Bss_FastOrder::config_fastorder</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Version 1.2.1]]></comment>
+                </field>
+
+                <field id="number_of_line" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Number of lines&nbsp;<span style="color: #D40707;">*</span>]]></label>
+                    <validate>validate-greater-than-zero required-entry</validate>
+                    <comment><![CDATA[Default lines shown.]]></comment>
+                </field>
+
+                <field id="search_by_sku" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable search by SKU</label>
+                    <comment><![CDATA[The autocomplete feature will search by NAME for default.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="automplete_min_char" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Autocomplete minimum characters</label>
+                    <comment><![CDATA[Minimum number of characters before displaying the automplete results.]]></comment>
+                    <validate>validate-greater-than-zero</validate>
+                </field>
+
+                <field id="max_results_show" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max results to show</label>
+                    <comment><![CDATA[Number of results in the autocomplete box.]]></comment>
+                    <validate>validate-greater-than-zero</validate>
+                </field>
+
+                <field id="header_background_color" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Head Background Color</label>
+                    <validate>jscolor</validate>
+                </field>
+
+                <field id="header_text_color" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Head Text Color</label>
+                    <validate>jscolor</validate>
+                </field>
+
+                <field id="active_shortcut" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Shortcut Top Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="cms_url_key" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shortcut Url Key</label>
+                    <comment><![CDATA[Shortcut url key for fast order]]></comment>
+                    <depends><field id="active_shortcut">1</field></depends>
+                </field>
+
+                <field id="active_customer_groups" translate="label" type="multiselect" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable for customer groups</label>
+                    <source_model>Bss\FastOrder\Model\Config\Source\Customer</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>
