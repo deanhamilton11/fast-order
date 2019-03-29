@@ -42,7 +42,7 @@ class Select extends CatalogSelect
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function getValuesHtml()
+    public function getValuesHtml(): string
     {
         $sortOrder = $this->getRequest()->getParam('sortOrder');
         $_option = $this->getOption();
